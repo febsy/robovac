@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+<title>ROBOVAC COMMAND CENTER</title>
+<link rel="stylesheet" type="text/css" href="/static/webgui.css">
+<script type="text/javascript" src="/static/menu.js"></script>
+<script type="text/javascript" src="/static/overview.js"></script>
+<script type="text/javascript" src="/static/console.js"></script>
+<script type="text/javascript" src="/static/rooms.js"></script>
+<script type="text/javascript" src="/static/settings.js"></script>
+<script type="text/javascript" src="/static/translation.js"></script>
+<!--script type="text/javascript" src="/static/plot/transform.js"></script>
+<script type="text/javascript" src="/static/plot/xy.js"></script-->
+<script type="text/javascript">
+"use strict";
+var mXmlhttp;
+var mLanguage = 0;
+var mTimer;
+
+function init()
+{
+  mXmlhttp = new XMLHttpRequest();
+  getLanguageSetting();
+}
+
+function getLanguageSetting()
+{
+  if (mXmlhttp.readyState != 4)
+  {
+    mXmlhttp.abort();
+    mXmlhttp.onreadystatechange = function(){}
+  }
+  mXmlhttp = new XMLHttpRequest();
+  mXmlhttp.open("GET","/config?id=LANGUAGE");
+  mXmlhttp.send();
+  mXmlhttp.setTimeout = 2000;
+  mXmlhttp.onreadystatechange = onLanguageSettings;
+  mXmlhttp.timeout = init;
+}
+
+function onLanguageSettings()
+{
+  if (mXmlhttp.readyState == 4 && mXmlhttp.status == 200)
+  {
+    var language = JSON.parse(mXmlhttp.response)[0];
+    mLanguage = language["VALUE"];
+    translateTopbar();
+  }
+  else if (mXmlhttp.readyState == 4)
+  {
+    mTimer = setTimeout("init()",2000);
+  }
+}
+
+function translateTopbar()
+{
+  var topbar = document.getElementById("topbar");
+  if(topbar)
+  {
+    for (var i = 0; i < topbar.children.length; i++)
+    {
+      if (topbar.children[i].children.length > 0)
+      {
+        if (topbar.children[i].children[0].hasAttribute("textref"))
+        {
+          var  text = topbar.children[i].children[0].getAttribute("textref");
+          topbar.children[i].children[0].textContent = translate(text,mLanguage);
+        }
+      }
+    }
+  }
+  var buttons = {
+    "overview": "btn_main",
+    "rooms":"btn_rooms",
+    "advanced":"btn_console",
+    "settings":"btn_settings"
+  };
+  setActiveMenu(buttons[mMenu[0]]);
+  getMenu(mMenu[0],mMenu[1]);
+}
+</script>
+</head>
+<body onload="init()">
+<ul id="topbar">
+  <li class="Spacer">
+    <img src="/static/Robovaclogo.png" class="Logo" onclick="setActiveMenu('btn_main');getMenu('overview',0)"></img>
+  </li>
+  <li class="Button">
+    <a id="btn_main" href="#" onclick="setActiveMenu('btn_main');getMenu('overview',0)" textref="label.main">Main</a>
+  </li>
+  <li class="Button">
+    <a id="btn_rooms" href="#" onclick="setActiveMenu('btn_rooms');getMenu('rooms',0)" textref="label.rooms">Rooms</a>
+  </li>
+  <li class="Button">
+    <a id="btn_console" href="#" onclick="setActiveMenu('btn_console');getMenu('advanced',0)" textref="label.console">Console</a>
+  </li>
+  <li class="Button">
+    <a id="btn_settings" href="#" onclick="setActiveMenu('btn_settings');getMenu('settings',0)" textref="label.settings">Settings</a>
+  </li>
+  <div class="Infotop">
+  </div>
+</ul>
+<div id="main_frame">
+  <div id="sidebar"></div>
+  <div id="main_body"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,170 @@
+/*#topbar
+{
+  background-color: gray;
+  height: 44px;
+  width: 100%;
+  border-radius: 5px;
+}*/
+
+#sidebar
+{
+  background-color: white;
+  width: 15%;
+  height: auto;
+  border-radius: 5px;
+  border: 2px solid gray/*#cac1c1*/;
+  margin-top: 20px;
+  float: left;
+}
+
+#main_body
+{
+  float: left;
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 30%;
+  height:100%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: inline-block;
+    color: #b9b2b2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+.active {
+    background-color: red;
+}
+
+.Spacer
+{
+  float: left;
+  height: 30px;
+  width: 15%;
+  margin-top: 5px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.Logo
+{
+  max-height:100%;
+  max-width:100%;
+}
+.SubMenuButton
+{
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  border-top: 2px solid gray;
+  /*margin-left: 10%;
+  margin-top: 5px;
+  margin-bottom: 5px;*/
+  line-height: 2em;
+}
+
+.SubMenuButton:hover
+{
+  background-color: gray;
+}
+
+.SubMenuButtonActive
+{
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  border-top: 2px solid gray;
+  background-color: #b9b9b9;
+  /*margin-left: 10%;
+  margin-top: 5px;
+  margin-bottom: 5px;*/
+  line-height: 2em;
+}
+
+.SubMenuButtonActive:hover
+{
+  background-color: gray;
+}
+
+.SubMenuButtonText
+{
+  color: gray;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+}
+
+.SubMenuButtonText:hover
+{
+  color: white;
+}
+
+.SubMenuButtonActiveText
+{
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+}
+
+.Infotop
+{
+  float: right;
+  height: 30px;
+  width: auto;
+  margin-top: 5px;
+  margin-right: 15px;
+  border: 2px solid #cac1c1;
+  border-radius: 5px;
+}
+
+.Overview_body
+{
+  height: 50px;
+  width: 100%;
+  background-color: gray;
+  border-radius: 5px;
+}
+
+.SubMenuItem
+{
+  padding-top: 15px;
+  padding-left: 15px;
+}
+
+.SubMenuItemLabel
+{
+  color: white;
+}
+
+.SubMenuItemSelect
+{
+  width: 35%;
+  margin-right: 15px;
+  float: right;
+}
+
+.SubMenuItemTextfield
+{
+  width: 35%;
+  margin-right: 15px;
+  float: right;
+}

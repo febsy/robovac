@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<menutree>
+   <menu id="overview">
+     <sidebar hidden="false">
+        <item textref="label.startstop" id="overview.item.startstop">
+          <content textref="label.startstop" id="overview.content.startstop" type="overview"/>
+        </item>
+        <item textref="label.calibrate" id="overview.item.calibrate">
+          <content textref="label.calibrate" id="overview.content.calibrate" type="calibration"/>
+        </item>
+     </sidebar>
+   </menu>
+   <menu id="rooms">
+     <sidebar hidden="false">
+       <item textref="label.viewroom" id="rooms.item.viewroom">
+         <content textref="label.viewroom" id="rooms.content.viewroom" type="browser"/>
+       </item>
+       <item textref="label.removeroom" id="rooms.item.removeroom">
+         <content textref="label.viewroom" id="rooms.content.viewroom" type="browser"/>
+       </item>
+       <item textref="label.uploadroom" id="rooms.item.uploadroom">
+         <content textref="label.viewroom" id="rooms.content.viewroom" type="browser"/>
+       </item>
+     </sidebar>
+   </menu>
+   <menu id="advanced">
+     <sidebar hidden="true">
+       <item>
+         <content id="advanced.console" type="console"/>
+       </item>
+     </sidebar>
+   </menu>
+   <menu id="settings">
+     <sidebar hidden="false">
+       <item textref="label.language" id="settings.item.language">
+         <content textref="label.language" id="settings.content.language" type="settings">LANGUAGE</content>
+       </item>
+       <item textref="label.connection" id="settings.item.connection">
+         <content textref="label.language" id="settings.content.connection" type="settings">NETWORK</content>
+       </item>
+       <item textref="label.timesync" id="settings.item.timesync">
+         <content textref="label.language" id="settings.content.language" type="settings">TIMESYNC</content>
+       </item>
+     </sidebar>
+   </menu>
+</menutree>

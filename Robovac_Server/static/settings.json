@@ -1,0 +1,24 @@
+{
+  "LANGUAGE":
+  [
+    {
+      "VALUE": "1",
+      "TYPE": "ENUM",
+      "CASES": ["English","Deutsch"]
+    }
+  ],
+  "NETWORK":
+  [
+  {
+    "VALUE": "192.168.1.101",
+    "TYPE": "STRING"
+  }
+  ],
+  "TIMESYNC":
+  [
+    {
+      "VALUE": "pool.ntp.org",
+      "TYPE": "STRING"
+    }
+  ]
+}
