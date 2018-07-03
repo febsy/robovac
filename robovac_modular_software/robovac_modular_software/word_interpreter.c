@@ -20,12 +20,10 @@
 #include "config.h"
 #include "globals.h"
 
+
 uint8_t word_interpreter_core(int16_t *cmd_var1,int16_t *cmd_var2)
 {
 	char command[32];
-	int16_t cmd_val1, cmd_val2;
-	cmd_var1 = &cmd_val1;
-	cmd_var2 = &cmd_val2;
 	usart0_gets(command,sizeof(command)/sizeof(command[0]));
 	switch (command[0])
 	{
@@ -457,12 +455,9 @@ void word_interpreter_message_handler(void)
 	{
 		return;
 	}
-	//int16_t cmd_1 = 0, cmd_2, res_1, res_2, res_3; // ALS GLOBALS DEFINIEREN, DA POINTER ZEUGS IMMER 0 GIBT !!
+	int16_t cmd_1 = -1,cmd_2 = -1,res_1 = -1,res_2 = -1,res_3 = -1;
 	uint8_t cmd_0 = word_interpreter_core(&cmd_1,&cmd_2);
-	
-	char message[33];
-	snprintf(message,sizeof(message),"I is: %d\n",cmd_1);
-	usart0_puts(message);
+
 	word_interpreter_actor(cmd_0,cmd_1,cmd_2,&res_1,&res_2,&res_3);
 	word_interpreter_response(cmd_0,res_1,res_2,res_3);
 }

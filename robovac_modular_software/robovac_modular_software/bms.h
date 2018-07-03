@@ -9,8 +9,6 @@
 #ifndef INCFILE1_H_
 #define INCFILE1_H_
 
-extern uint8_t mBatteryLoad;
-
 uint8_t bms_init(void);
 uint8_t bms_getBatteryLoad(void);
 

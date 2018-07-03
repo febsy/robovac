@@ -9,26 +9,28 @@
 #include <stdlib.h>
 #include <avr/io.h>
 
+#include "system_time.h"
+#include "bms.h"
+
 #include "globals.h"
 
 unsigned long mT1;
+volatile uint8_t mStatusFlag;
 
 uint8_t config_getStatus()
 {
-
-	return 0;
+	return mStatusFlag;
 }
 
 uint8_t config_getBatteryStatus()
 {
-
-	return 0;
+	return adc_getvalue();//bms_getBatteryLoad();
 }
 
 uint16_t config_getTime()
 {
 
-	return 0;
+	return (int16_t)(mSysTimeMs/1000);
 }
 
 uint8_t config_NTP(uint8_t phase,int16_t t2,int16_t t3) // phase 0 - save T1, phase 1 get T2 & T3 save T4 and calculate TIME = ((T2-T1)+(T3-T4))/2 -> return TIME
@@ -36,12 +38,13 @@ uint8_t config_NTP(uint8_t phase,int16_t t2,int16_t t3) // phase 0 - save T1, ph
 	if (phase == 0)
 	{
 		mT1 = mSysTimeMs;
-		return (int)(mSysTimeMs/1000);;
+		return 0;
 	}
 	else if (phase == 1)
 	{
-		mSysTimeMs = ((((t2 * 1000)-mT1)+((t3 * 1000)- mSysTimeMs))/2);
-		return (int)(mSysTimeMs/1000);;
+		int delay = 0;
+		system_time_SetTime(mT1,t2,t3,(int16_t)(mSysTimeMs/1000),&delay);
+		return delay;
 	}
 	return -1;
 }

@@ -9,8 +9,8 @@
 #ifndef ADC_H_
 #define ADC_H_
 
-extern void adc_init(void);
-extern int adc_getvalue(void);
+extern uint8_t adc_init(void);
+extern int16_t adc_getvalue(void);
 
 
 

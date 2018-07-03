@@ -12,12 +12,11 @@
 #include <avr/io.h>
 
 #include "adc.h"
-
 #include "bms.h"
 
 #define FULLBATTERY 1000
 
-uint8_t mBatteryLoad = 124;
+volatile uint8_t mBatteryLoad = 124;
 
 uint8_t bms_init(void)
 {

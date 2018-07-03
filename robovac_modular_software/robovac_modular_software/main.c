@@ -10,6 +10,7 @@
 #include "ultrasonic.h"
 #include "word_interpreter.h"
 #include "usart0.h"
+#include "adc.h"
 
 #include "globals.h"
 
@@ -34,5 +35,6 @@ void init(void)
 {
 	usart0_init(9600);
 	hmc5883_init();
-	ultrasonic_init();	
+	ultrasonic_init();
+	bms_init();
 }

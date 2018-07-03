@@ -11,6 +11,8 @@
 
 extern volatile uint8_t mSoftReset;
 extern volatile unsigned long mSysTimeMs;
+extern volatile uint8_t mStatusFlag;
+extern volatile uint8_t mBatteryLoad;
 
 
 

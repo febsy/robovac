@@ -7,14 +7,15 @@
 
 #include <avr/io.h>
 
-void adc_init(void){
+uint8_t adc_init(void){
 	ADMUX = 0b00000000; //S.248 ff
 	ADCSRA = 0b11100000;
 	ADCSRB = 0b00000000;
 	DIDR0 |= 0b00000001;
+	return 0;
 }
 
-int adc_getvalue(void){
+int16_t adc_getvalue(void){
 	unsigned char lval,hval;
 	lval = ADCL;
 	hval = ADCH;
