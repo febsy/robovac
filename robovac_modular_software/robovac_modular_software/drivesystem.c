@@ -11,13 +11,12 @@
 
 uint8_t drivesystem_isReady(void)
 {
-
 	return 0;
 }
 
 uint8_t drivesystem_SetDestination(int16_t x,int16_t y)
 {
-
+	
 	return 0;
 }
 
@@ -31,4 +30,10 @@ uint8_t drivesystem_Stop(void)
 {
 
 	return 0;
+}
+
+uint8_t drivesystem_driveDEAMON()
+{
+	
+	return 1;
 }

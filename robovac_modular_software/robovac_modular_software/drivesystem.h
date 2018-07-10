@@ -14,6 +14,8 @@ uint8_t drivesystem_SetDestination(int16_t,int16_t);
 uint8_t drivesystem_SetAngle(uint8_t,uint16_t);
 uint8_t drivesystem_Stop(void);
 
+uint8_t drivesystem_driveDEAMON();
+
 
 
 #endif /* DRIVESYSTEM_H_ */

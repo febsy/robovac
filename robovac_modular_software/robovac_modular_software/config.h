@@ -14,6 +14,8 @@ uint8_t config_getBatteryStatus();
 uint16_t config_getTime();
 uint8_t config_NTP(uint8_t,int16_t,int16_t);
 
+uint8_t config_flagDEAMON();
+
 
 
 #endif /* CONFIG_H_ */

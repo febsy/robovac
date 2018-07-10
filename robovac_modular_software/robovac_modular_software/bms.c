@@ -14,7 +14,9 @@
 #include "adc.h"
 #include "bms.h"
 
-#define FULLBATTERY 1000
+#include "globals.h"
+
+#define FULLBATTERY 7811.1
 
 volatile uint8_t mBatteryLoad = 124;
 
@@ -26,7 +28,11 @@ uint8_t bms_init(void)
 
 uint8_t bms_getBatteryLoad(void)
 {
-	uint16_t batload = (adc_getvalue()*100)/FULLBATTERY;
+	float batload = ((adc_getvalue()*1000.00)/FULLBATTERY);
 	mBatteryLoad = (uint8_t)batload;
-	return (uint8_t)batload;
+	if (mBatteryLoad < 30)
+	{
+		mStatusFlag = 'A';
+	}
+	return mBatteryLoad;
 }

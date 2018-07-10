@@ -24,7 +24,7 @@ uint8_t config_getStatus()
 
 uint8_t config_getBatteryStatus()
 {
-	return adc_getvalue();//bms_getBatteryLoad();
+	return bms_getBatteryLoad();
 }
 
 uint16_t config_getTime()
@@ -47,4 +47,13 @@ uint8_t config_NTP(uint8_t phase,int16_t t2,int16_t t3) // phase 0 - save T1, ph
 		return delay;
 	}
 	return -1;
+}
+
+uint8_t config_flagDEAMON()
+{
+	drivesystem_isReady();	// PRIORITY 3
+	//STUCK					// PRIORITY 2
+	//CORR					// PRIORITY 1
+	bms_getBatteryLoad();	// PRIORITY 0
+	return 1;
 }
