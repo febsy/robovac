@@ -14,7 +14,7 @@
 
 #include "globals.h"
 
-unsigned long mT1;
+int16_t mT1;
 volatile uint8_t mStatusFlag;
 
 uint8_t config_getStatus()
@@ -30,14 +30,14 @@ uint8_t config_getBatteryStatus()
 uint16_t config_getTime()
 {
 
-	return (int16_t)(mSysTimeMs/1000);
+	return (uint16_t)(mSysTimeMs/1000);
 }
 
 uint8_t config_NTP(uint8_t phase,int16_t t2,int16_t t3) // phase 0 - save T1, phase 1 get T2 & T3 save T4 and calculate TIME = ((T2-T1)+(T3-T4))/2 -> return TIME
 {
 	if (phase == 0)
 	{
-		mT1 = mSysTimeMs;
+		mT1 = (int16_t)(mSysTimeMs/1000);
 		return 0;
 	}
 	else if (phase == 1)

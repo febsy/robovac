@@ -15,7 +15,7 @@ extern uint8_t mSysTimeAdjustment;
 uint8_t system_time_init(void);
 
 void system_time_IRQDeamon(void);
+unsigned long system_time_GetUs(void);
 int16_t system_time_SetTime(int16_t, int16_t, int16_t, int16_t,int16_t*);
-
 
 #endif /* SYSTEM_TIME_H_ */

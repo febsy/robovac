@@ -288,7 +288,7 @@ void word_interpreter_response(uint8_t cmd, int16_t res_var1, int16_t res_var2, 
 	case 103: // M3
 		noerr = 1;
 		char message_103[18];
-		snprintf(message_103,sizeof(message_103),"OK L%d R%d\n",res_var1,res_var2);
+		snprintf(message_103,sizeof(message_103),"OK L%d R%d\n",res_var2,res_var3);
 		usart0_puts(message_103);
 		return;
 		break;
@@ -319,7 +319,7 @@ void word_interpreter_response(uint8_t cmd, int16_t res_var1, int16_t res_var2, 
 		else
 		{
 			char message_def2[10];
-			snprintf(message_def2,sizeof(message_def2),"OK %d\n",res_var1);
+			snprintf(message_def2,sizeof(message_def2),"OK %d\n",(uint16_t) res_var1);
 			usart0_puts(message_def2);
 		}
 		if (noerr == 0)
@@ -393,7 +393,7 @@ void word_interpreter_actor(uint8_t cmd_0, int16_t cmd_1,int16_t cmd_2,int16_t *
 		return;
 		break;
 	case 103: // M3
-		tracker_getUSDistance(res_1,res_2);
+		*res_1 = tracker_getUSDistance(res_2,res_3);
 		return;
 		break;
 	case 104: // M4

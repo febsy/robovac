@@ -9,6 +9,9 @@
 #include <stdlib.h>
 #include <avr/io.h>
 
+#include "ultrasonic.h"
+#include "globals.h"
+
 uint8_t tracker_getPosition(uint8_t objmode,int16_t* x,int16_t* y,int16_t* a_h) // ObjectMode 0: Return X,Y,Angle ; ObjectMode 1: Return X,Y,Bool
 {
 
@@ -17,8 +20,12 @@ uint8_t tracker_getPosition(uint8_t objmode,int16_t* x,int16_t* y,int16_t* a_h) 
 
 uint8_t tracker_getUSDistance(int16_t* us1,int16_t* us2)
 {
-
-	return 0;
+	uint8_t dist1 = 0;
+	uint8_t dist2 = 0;
+	uint8_t status = ultrasonic_getDistance(&dist1,&dist2);
+	*us1 = dist1;
+	*us2 = dist2;
+	return status;
 }
 
 uint8_t tracker_setHome(int16_t x,int16_t y)
