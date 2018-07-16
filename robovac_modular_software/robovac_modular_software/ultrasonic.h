@@ -16,7 +16,7 @@ extern volatile int us1_distance,us2_distance;
 
 extern void ultrasonic_init(void);
 extern int ultrasonic_transform(unsigned long);
-extern uint8_t ultrasonic_getDistance(uint8_t*,uint8_t*);
+extern uint8_t ultrasonic_getDistance(int16_t*,int16_t*);
 extern void ultrasonic_measureDEAMON(void);
 
 

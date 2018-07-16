@@ -15,7 +15,8 @@
 #include "globals.h"
 
 
-volatile char mUSState = 0; // [0b<us2_eoc><us1_eoc>xxxx<us2><us1>]
+volatile char mUS1State = 0;
+volatile char mUS2State = 0;
 volatile unsigned long mUS1Time = 0; 
 volatile unsigned long mUS2Time = 0;
 
@@ -29,50 +30,64 @@ int ultrasonic_transform(unsigned long traveltime){
 	return distance;
 }
 
-uint8_t ultrasonic_getDistance(uint8_t* dist1,uint8_t* dist2)
+uint8_t ultrasonic_getDistance(int16_t* dist1,int16_t* dist2) // call max. all 60 ms
 {
-	if(mUSState == 0)
-	{
-		//int d1 = ultrasonic_transform(mUS1Time);
+		int d1 = ultrasonic_transform(mUS1Time);
 		int d2 = ultrasonic_transform(mUS2Time);
-		/*if (d1 > 253)
+		if (d1 > 400)
 		{
-			d1 = 0xFF;
-		}*/
-		if (d2 > 253)
-		{
-			d2 = 0xFF;
+			d1 = 400;
 		}
-		//*dist1 = d1;
+		if (d2 > 400)
+		{
+			d2 = 400;
+		}
+		*dist1 = d1;
 		*dist2 = d2;
 		PORTD |= 0b00010000;
 		_delay_us(20);
 		PORTD &= ~0b00010000;
 		mUS1Time = 0;
 		mUS2Time = 0;
-		mUSState = 1;
+		mUS1State = 1;
+		mUS2State = 1;
 		return 1;
-	}
-	return -1;
 }
 
 void ultrasonic_measureDEAMON(void)
 {
-	/*if((mUSState & 0b00000001) == 0){
-		if((PIND & 0b00001000)== 0b00001000){
-			mUS1Time -= mSysTimeMs;
-			mUSState |= 0b00000001;
+	/*------------------------US1------------------------*/
+	if(mUS1State == 1)
+	{
+		if((PIND & 0b00001000) == 0b00001000)
+		{
+			mUS1Time = system_time_GetUs();
+			mUS1State = 2;
 		}
-	}*/
-	if(mUSState == 1)
+	}
+	if (mUS1State == 2)
+	{
+		if((PIND & 0b00001000) == 0b00000000)
+		{
+			unsigned long secondTimeUs1 = system_time_GetUs();
+			if (secondTimeUs1 < mUS1Time)
+			{
+				secondTimeUs1 += 100000;
+			}
+			mUS1Time = secondTimeUs1 - mUS1Time;
+			mUS1State = 0;
+		}
+	}
+	/*------------------------US2------------------------*/
+	if(mUS2State == 1)
 	{
 		if((PIND & 0b00000100) == 0b00000100)
 		{
 			mUS2Time = system_time_GetUs();
-			mUSState = 2;
+			mUS2State = 2;
 		}
 	}
-	if (mUSState == 2)
+	if (mUS2State == 2)
 	{
 		if((PIND & 0b00000100) == 0b00000000)
 		{
@@ -82,7 +97,7 @@ void ultrasonic_measureDEAMON(void)
 				secondTimeUs2 += 100000;
 			}
 			mUS2Time = secondTimeUs2 - mUS2Time;
-			mUSState = 0;
+			mUS2State = 0;
 		}
 	}
 }
