@@ -9,12 +9,46 @@
 #include <stdlib.h>
 #include <avr/io.h>
 
+#include "tracker.h"
 #include "ultrasonic.h"
+#include "hmc5843.h"
 #include "globals.h"
 
-uint8_t tracker_getPosition(uint8_t objmode,int16_t* x,int16_t* y,int16_t* a_h) // ObjectMode 0: Return X,Y,Angle ; ObjectMode 1: Return X,Y,Bool
-{
+int16_t mDistancePerUnit = 0;
+int16_t mAnglePerUnit = 0;
+volatile int16_t mCurrentPosX = 0;
+volatile int16_t mCurrentPosY = 0;
+volatile int16_t mCurrentAngle = 0;
 
+uint8_t tracker_init()
+{
+	mDistancePerUnit = 0;
+	mAnglePerUnit = 0;
+	return 1;
+}
+
+uint8_t tracker_getPosition(uint8_t objmode,int16_t* x,int16_t* y,int16_t* a_h) // ObjectMode A: Return X,Y,Angle ; ObjectMode O: Return X,Y,Bool
+{
+	*x = mCurrentPosX;
+	*y = mCurrentPosY;
+	if (objmode == 'O')
+	{
+		int16_t us1=400;
+		int16_t us2=400;
+		tracker_getUSDistance(&us1,&us2);
+		if(us1 < 15 || us2 < 15)
+		{
+			*a_h = 1;
+		}
+		else
+		{
+			*a_h = 0;
+		}
+	}
+	else
+	{
+		*a_h = mCurrentAngle;
+	}
 	return 0;
 }
 
@@ -23,26 +57,34 @@ uint8_t tracker_getUSDistance(int16_t* us1,int16_t* us2)
 	return ultrasonic_getDistance(us1,us2);
 }
 
+uint8_t tracker_getAngle(int16_t* angle)
+{
+	hmc5883_mean_angle();
+	*angle = mCurrentAngle;
+	return 1;
+}
+
 uint8_t tracker_setHome(int16_t x,int16_t y)
 {
-
-	return 0;
+	mCurrentPosX = x;
+	mCurrentPosY = y;
+	return 1;
 }
 
 uint8_t tracker_setOrientation(int16_t a)
 {
-
-	return 0;
+	mCurrentAngle = a;
+	return 1;
 }
 
 uint8_t tracker_setDistancePerUnit(int16_t dpu)
 {
-
-return 0;
+	mDistancePerUnit = dpu;
+	return 1;
 }
 
 uint8_t tracker_setAnglePerUnit(int16_t apu)
 {
-
-return 0;
+	mAnglePerUnit = apu;
+	return 1;
 }

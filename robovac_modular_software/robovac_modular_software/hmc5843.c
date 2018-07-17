@@ -30,6 +30,8 @@
 #include <math.h>
 #include <util/delay.h>
 
+#include "globals.h"
+
 
 #define HMC5843_W	0x3C
 #define HMC5843_R	0x3D
@@ -46,7 +48,6 @@ void init_hmc5843(void);
 
 //Global variables
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-volatile int16_t mCurrentAngle = 0;
 
 void hmc5883_init (void)
 {

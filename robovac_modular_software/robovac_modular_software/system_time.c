@@ -33,7 +33,6 @@ void system_time_IRQDeamon(void)
 		mTimeprescaler = 0;
 		mSysTimeMs += mSysTimeAdjustment;
 	}
-	
 }
 
 int16_t system_time_SetTime(int16_t t0, int16_t t1, int16_t t2, int16_t t3,int16_t *delay)

@@ -11,6 +11,8 @@
 
 #include "system_time.h"
 #include "bms.h"
+#include "vacuum.h"
+#include "drivesystem.h"
 
 #include "globals.h"
 
@@ -55,5 +57,23 @@ uint8_t config_flagDEAMON()
 	//STUCK					// PRIORITY 2
 	//CORR					// PRIORITY 1
 	bms_getBatteryLoad();	// PRIORITY 0
+	if(mStatusFlag != 'R')
+	{
+		switch (mStatusFlag)
+		{
+		case 'S':
+			drivesystem_Stop();
+			mDriveSystemReady = 0;
+			break;
+		case 'C':
+			break;
+		case 'A':
+			vacuum_setState(0);
+			break;
+		default:
+			return 0;
+			break;
+		}
+	}
 	return 1;
 }

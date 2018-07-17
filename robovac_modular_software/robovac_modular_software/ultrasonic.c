@@ -24,7 +24,7 @@ void ultrasonic_init(void){
 	DDRD |= 0b00010000;			//set triggerpin
 }
 
-int ultrasonic_transform(unsigned long traveltime){
+int ultrasonic_transform(unsigned long traveltime){ // returns distance in cm
 	unsigned long tt = (traveltime/2);
 	int distance = (int)(0.0343 * tt);
 	return distance;
@@ -101,11 +101,3 @@ void ultrasonic_measureDEAMON(void)
 		}
 	}
 }
-
-/*
-
-char message_def2[10];
-snprintf(message_def2,sizeof(message_def2),"%d\n",(int)(mUS2Time/1000));
-usart0_puts(message_def2);
-
-*/

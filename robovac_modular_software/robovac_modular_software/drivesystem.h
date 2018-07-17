@@ -9,9 +9,12 @@
 #ifndef DRIVESYSTEM_H_
 #define DRIVESYSTEM_H_
 
+uint8_t drivesystem_init();
+
 uint8_t drivesystem_isReady(void);
 uint8_t drivesystem_SetDestination(int16_t,int16_t);
-uint8_t drivesystem_SetAngle(uint8_t,uint16_t);
+uint8_t drivesystem_SetDistance(int16_t);
+uint8_t drivesystem_SetAngle(int8_t,uint16_t);
 uint8_t drivesystem_Stop(void);
 
 uint8_t drivesystem_driveDEAMON();

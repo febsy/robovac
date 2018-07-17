@@ -9,6 +9,8 @@
 #ifndef VACUUM_H_
 #define VACUUM_H_
 
+uint8_t vacuum_init();
+
 uint8_t vacuum_getState();
 uint8_t vacuum_setState(uint8_t);
 

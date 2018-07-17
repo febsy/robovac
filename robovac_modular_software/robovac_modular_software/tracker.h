@@ -9,8 +9,10 @@
 #ifndef TRACKER_H_
 #define TRACKER_H_
 
+uint8_t tracker_init();
 uint8_t tracker_getPosition(uint8_t,int16_t*,int16_t*,int16_t*);
 uint8_t tracker_getUSDistance(int16_t*,int16_t*);
+uint8_t tracker_getAngle(int16_t*);
 
 uint8_t tracker_setHome(int16_t,int16_t);
 uint8_t tracker_setOrientation(int16_t);

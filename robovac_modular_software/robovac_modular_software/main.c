@@ -15,6 +15,9 @@
 #include "usart0.h"
 #include "adc.h"
 #include "system_time.h"
+#include "bms.h"
+#include "drivesystem.h"
+#include "tracker.h"
 
 #include "globals.h"
 
@@ -45,6 +48,8 @@ void init(void)
 	ultrasonic_init();
 	bms_init();
 	timer_init();
+	drivesystem_init(); 
+	tracker_init();
 }
 
 void timer_init(void){
@@ -58,4 +63,5 @@ ISR(TIMER0_COMPA_vect)
 {
 	system_time_IRQDeamon();
 	ultrasonic_measureDEAMON();
+	drivesystem_driveDEAMON();
 }
