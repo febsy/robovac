@@ -125,10 +125,13 @@ uint8_t drivesystem_driveDEAMON()
 			PORTD |= (0b10000000);
 			PORTB |= (0b00000001);
 			PORTB |= (0b00000110);
+			mDSDTargetTime = 0;
+			mDSDLinear = 0;
 			mDSDStatus &= ~(1);
 		}
 		break;
-	default: // 3 or 2
+	case 2:
+	case 3: // 3 or 2
 		if(mDSDAngle == 0)
 		{
 			mDSDAngle = 1;
@@ -138,16 +141,16 @@ uint8_t drivesystem_driveDEAMON()
 		{
 			if(mAngleDirection == 1)
 			{
-				PORTD |= (0b10000000);
-				PORTB &= ~(0b00000001);
+				PORTD &= ~(0b10000000);
+				PORTB |= (0b00000001);
 				
 				PORTB &= ~(0b00000100);
 				PORTB |= (0b00000010);
 			}
 			else
 			{
-				PORTD &= ~(0b10000000);
-				PORTB |= (0b00000001);
+				PORTD |= (0b10000000);
+				PORTB &= ~(0b00000001);
 				
 				PORTB &= ~(0b00000010);
 				PORTB |= (0b00000100);
@@ -158,8 +161,12 @@ uint8_t drivesystem_driveDEAMON()
 			PORTD |= (0b10000000);
 			PORTB |= (0b00000001);
 			PORTB |= (0b00000110);
+			mDSDTargetTime = 0;
+			mDSDAngle = 0;
 			mDSDStatus &= ~(2);
 		}
+		break;
+		default:
 		break;
 	}
 	return 1;

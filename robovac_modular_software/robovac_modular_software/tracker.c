@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
+#include <math.h>
 
 #include "tracker.h"
 #include "ultrasonic.h"
@@ -19,6 +20,7 @@ int16_t mAnglePerUnit = 0;
 volatile int16_t mCurrentPosX = 0;
 volatile int16_t mCurrentPosY = 0;
 volatile int16_t mCurrentAngle = 0;
+volatile unsigned long mPositionTime = 0;
 
 uint8_t tracker_init()
 {
@@ -86,5 +88,17 @@ uint8_t tracker_setDistancePerUnit(int16_t dpu)
 uint8_t tracker_setAnglePerUnit(int16_t apu)
 {
 	mAnglePerUnit = apu;
+	return 1;
+}
+
+uint8_t tracker_refreshPositionDEAMON(void)
+{
+	
+	if (mDSDLinear == 1)
+	{
+		mCurrentPosX += ((mSysTimeMs - mPositionTime)*mDistancePerUnit) * cos(0.0175*mCurrentAngle);
+		mCurrentPosY += ((mSysTimeMs - mPositionTime)*mDistancePerUnit) * sin(0.0175*mCurrentAngle);
+	}
+	mPositionTime = mSysTimeMs;
 	return 1;
 }

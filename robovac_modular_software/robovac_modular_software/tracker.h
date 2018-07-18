@@ -21,4 +21,5 @@ uint8_t tracker_setAnglePerUnit(int16_t);
 
 
 
+uint8_t tracker_refreshPositionDEAMON(void);
 #endif /* TRACKER_H_ */

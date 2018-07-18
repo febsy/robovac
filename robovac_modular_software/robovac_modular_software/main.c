@@ -22,9 +22,11 @@
 #include "globals.h"
 
 volatile uint8_t mSoftReset;
+volatile uint16_t mIntPrescaler = 0;
 
 void init(void);
 void timer_init(void);
+void slow_interrupt(void);
 
 int main(void)
 {
@@ -64,4 +66,15 @@ ISR(TIMER0_COMPA_vect)
 	system_time_IRQDeamon();
 	ultrasonic_measureDEAMON();
 	drivesystem_driveDEAMON();
+	mIntPrescaler ++;
+	if(mIntPrescaler == 1000)
+	{
+		mIntPrescaler = 0;
+		slow_interrupt();
+	}
+}
+
+void slow_interrupt(void)
+{
+	tracker_refreshPositionDEAMON();
 }

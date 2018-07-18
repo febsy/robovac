@@ -24,6 +24,8 @@ extern volatile int16_t mCurrentPosY;
 extern volatile int16_t mCurrentAngle;
 // drivesystem
 extern uint8_t mDriveSystemReady;
+extern volatile uint8_t mDSDLinear;
+//
 
 
 
