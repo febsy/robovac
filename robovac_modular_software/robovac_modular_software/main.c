@@ -18,6 +18,8 @@
 #include "bms.h"
 #include "drivesystem.h"
 #include "tracker.h"
+#include "vacuum.h"
+#include "config.h"
 
 #include "globals.h"
 
@@ -52,6 +54,7 @@ void init(void)
 	timer_init();
 	drivesystem_init(); 
 	tracker_init();
+	vacuum_init();
 }
 
 void timer_init(void){
@@ -77,4 +80,5 @@ ISR(TIMER0_COMPA_vect)
 void slow_interrupt(void)
 {
 	tracker_refreshPositionDEAMON();
+	config_flagDEAMON();
 }

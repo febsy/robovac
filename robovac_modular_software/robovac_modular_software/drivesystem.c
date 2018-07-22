@@ -41,6 +41,10 @@ uint8_t drivesystem_init()
 
 uint8_t drivesystem_isReady(void)
 {
+	if (mDriveSystemReady == 1)
+	{
+		mStatusFlag = 'R';
+	}
 	return mDriveSystemReady;
 }
 

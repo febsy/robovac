@@ -180,6 +180,12 @@ uint8_t word_interpreter_core(int16_t *cmd_var1,int16_t *cmd_var2)
 				*cmd_var2 = 0;
 				return 199;
 			}
+			if ((command[1] == '8') && (command[2] == '0')) // M80 - just respond
+			{
+				*cmd_var1 = 0;
+				*cmd_var2 = 0;
+				return 180;
+			}
 			if ((command[1] == '3') && (command[2] == '0')) // M30 - Stop Motors
 			{
 				*cmd_var1 = 0;
@@ -319,8 +325,19 @@ void word_interpreter_response(uint8_t cmd, int16_t res_var1, int16_t res_var2, 
 		else
 		{
 			char message_def2[10];
-			snprintf(message_def2,sizeof(message_def2),"OK %d\n",(uint16_t) res_var1);
-			usart0_puts(message_def2);
+			if (cmd != 102)
+			{
+				snprintf(message_def2,sizeof(message_def2),"OK %d\n",(uint16_t) res_var1);
+				usart0_puts(message_def2);
+			}
+			else
+			{
+				snprintf(message_def2,sizeof(message_def2),"OK ");
+				usart0_puts(message_def2);
+				usart0_putchar(res_var1);
+				usart0_putchar('\n');
+			}
+			
 		}
 		if (noerr == 0)
 		{
@@ -440,6 +457,10 @@ void word_interpreter_actor(uint8_t cmd_0, int16_t cmd_1,int16_t cmd_2,int16_t *
 		break;
 	case 199: // M99
 		mSoftReset = 1;
+		*res_1 = 1;
+		return;
+		break;
+	case 180: // M80
 		*res_1 = 1;
 		return;
 		break;
