@@ -17,6 +17,9 @@ uint8_t drivesystem_SetDistance(int16_t);
 uint8_t drivesystem_SetAngle(int8_t,uint16_t);
 uint8_t drivesystem_Stop(void);
 
+void drivesystem_linearmovement();
+void drivesystem_rotationalmovement();
+
 uint8_t drivesystem_driveDEAMON();
 
 

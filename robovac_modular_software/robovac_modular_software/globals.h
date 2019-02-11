@@ -11,7 +11,7 @@
 // main
 extern volatile uint8_t mSoftReset;
 // sytemTime
-extern volatile unsigned long mSysTimeMs;
+extern volatile uint64_t mSysTimeMs;
 // config
 extern volatile uint8_t mStatusFlag;
 // bms
@@ -24,7 +24,7 @@ extern volatile int16_t mCurrentPosY;
 extern volatile int16_t mCurrentAngle;
 // drivesystem
 extern uint8_t mDriveSystemReady;
-extern volatile uint8_t mDSDLinear;
+extern volatile uint8_t mDSDStatus;
 //
 
 

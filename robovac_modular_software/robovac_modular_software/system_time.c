@@ -14,10 +14,10 @@
 #include "globals.h"
 
 
-volatile unsigned long mSysTimeMs = 0;
+volatile uint64_t mSysTimeMs = 0;
 volatile uint16_t mTimeprescaler = 0;
 uint8_t mSysTimeAdjustment = 96;	// 100 ms
-volatile long test = 0; 
+
 uint8_t system_time_init(void)
 {
 	mSysTimeAdjustment = 96;

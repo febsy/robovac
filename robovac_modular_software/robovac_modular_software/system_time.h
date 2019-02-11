@@ -9,7 +9,7 @@
 #ifndef SYSTEM_TIME_H_
 #define SYSTEM_TIME_H_
 
-extern volatile unsigned long mSysTimeMs;
+extern volatile uint64_t mSysTimeMs;
 extern uint8_t mSysTimeAdjustment;
 
 uint8_t system_time_init(void);

@@ -4,7 +4,7 @@ sudo rm /etc/ntp.conf
 
 sudo touch /home/pi/ntp.conf
 sudo chmod 777 /home/pi/ntp.conf
-
+sudo killall ntpd
 sudo echo "# /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
 
 driftfile /var/lib/ntp/ntp.drift
@@ -70,4 +70,4 @@ restrict source notrap nomodify noquery
 
 sudo mv /home/pi/ntp.conf /etc/ntp.conf
 
-sudo ntpd -qg
+sudo ntpd -qg &

@@ -15,8 +15,8 @@
 #include "hmc5843.h"
 #include "globals.h"
 
-int16_t mDistancePerUnit = 0;
-int16_t mAnglePerUnit = 0;
+int16_t mDistancePerUnit = 1;
+int16_t mAnglePerUnit = 1;
 volatile int16_t mCurrentPosX = 0;
 volatile int16_t mCurrentPosY = 0;
 volatile int16_t mCurrentAngle = 0;
@@ -94,7 +94,7 @@ uint8_t tracker_setAnglePerUnit(int16_t apu)
 uint8_t tracker_refreshPositionDEAMON(void)
 {
 	
-	if (mDSDLinear == 1)
+	if (mDSDStatus == 1)
 	{
 		mCurrentPosX += ((mSysTimeMs - mPositionTime)*mDistancePerUnit) * cos(0.0175*mCurrentAngle);
 		mCurrentPosY += ((mSysTimeMs - mPositionTime)*mDistancePerUnit) * sin(0.0175*mCurrentAngle);
