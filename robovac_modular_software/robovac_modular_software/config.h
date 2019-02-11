@@ -8,7 +8,8 @@
 
 #ifndef CONFIG_H_
 #define CONFIG_H_
-
+uint8_t config_init();
+uint8_t config_setLED(uint8_t,uint8_t,uint8_t);
 uint8_t config_getStatus();
 uint8_t config_getBatteryStatus();
 uint16_t config_getTime();

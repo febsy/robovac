@@ -48,6 +48,7 @@ int main(void)
 void init(void)
 {
 	usart0_init(9600);
+	config_init();
 	hmc5883_init();
 	ultrasonic_init();
 	bms_init();

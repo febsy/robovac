@@ -52,9 +52,6 @@ Mkfile.old
 dkms.conf
 Robovac_SW_Concept/.~lock.Robovac_v1_CMD.ods#
 *.ods
-*.atsuo
-*.lss
-*.srec
 robovac_modular_software/.vs/robovac_modular_software/v14/.atsuo
 *.lss
 *.srec

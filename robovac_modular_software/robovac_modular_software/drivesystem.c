@@ -20,15 +20,13 @@ volatile uint64_t mTravelTime = 0;
 
 volatile int8_t mAngleDirection = -1;
 volatile uint8_t mDSDStatus = 0;
-volatile uint64_t mDSDTargetTime = 0;
 
 
 uint8_t drivesystem_init()
 {
-	mTravelTime = 0;
+	mTravelTime = 1;
 	mAngleDirection = -1;
 	mDSDStatus = 0;
-	mDSDTargetTime = 0;
 	DDRD |= 0b11100000;
 	DDRB |= 0b00000111;
 	PORTD |= 0b01100000;
@@ -77,7 +75,6 @@ uint8_t drivesystem_SetDestination(int16_t x,int16_t y)
 
 uint8_t drivesystem_SetDistance(int16_t dist)
 {
-	mTravelTime = 1; // fix for calculating
 	mTravelTime = mTravelTime * (((uint64_t)dist * 1000) / mDistancePerUnit);
 	mDSDStatus = 1;
 	drivesystem_linearmovement();	
@@ -87,7 +84,6 @@ uint8_t drivesystem_SetDistance(int16_t dist)
 uint8_t drivesystem_SetAngle(int8_t dir,uint16_t a)
 {
 	mAngleDirection = dir;
-	mTravelTime = 1; // fix for calculating
 	mTravelTime = mTravelTime * (((uint64_t)a * 1000) / mAnglePerUnit);
 	mDSDStatus = 2;
 	drivesystem_rotationalmovement();
@@ -99,14 +95,14 @@ uint8_t drivesystem_Stop(void)
 	PORTD |= (0b10000000);
 	PORTB |= (0b00000001);
 	PORTB |= (0b00000110);
-	mDSDTargetTime = 0;
+	mTravelTime = 1;
 	mDSDStatus = 0;
 	return 1;
 }
 
 void drivesystem_linearmovement()
 {
-	mDSDTargetTime = mSysTimeMs + mTravelTime;
+	mTravelTime += mSysTimeMs;
 	PORTD &= ~(0b10000000);
 	PORTB |= (0b00000001);
 	
@@ -117,7 +113,7 @@ void drivesystem_linearmovement()
 
 void drivesystem_rotationalmovement()
 {
-	mDSDTargetTime = mSysTimeMs + mTravelTime;
+	mTravelTime += mSysTimeMs;
 	if(mAngleDirection == 1)
 	{
 		PORTD &= ~(0b10000000);
@@ -139,7 +135,7 @@ void drivesystem_rotationalmovement()
 
 uint8_t drivesystem_driveDEAMON()
 {
-	if(mSysTimeMs > mDSDTargetTime)
+	if(mSysTimeMs > mTravelTime)
 	{
 		drivesystem_Stop();
 	}

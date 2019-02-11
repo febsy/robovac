@@ -30,6 +30,10 @@ uint8_t bms_getBatteryLoad(void)
 {
 	float batload = ((adc_getvalue()*1000.00)/FULLBATTERY);
 	mBatteryLoad = (uint8_t)batload;
+	if (mBatteryLoad < 50)
+	{
+		mStatusFlag = 'L';
+	}
 	if (mBatteryLoad < 30)
 	{
 		mStatusFlag = 'A';

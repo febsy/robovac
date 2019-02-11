@@ -29,6 +29,15 @@ uint8_t tracker_init()
 	return 1;
 }
 
+uint8_t tracker_isInitialized()
+{
+	if (mDistancePerUnit == 0 || mAnglePerUnit == 0)
+	{
+		mStatusFlag = 'C';
+	}
+	return 1;
+}
+
 uint8_t tracker_getPosition(uint8_t objmode,int16_t* x,int16_t* y,int16_t* a_h) // ObjectMode A: Return X,Y,Angle ; ObjectMode O: Return X,Y,Bool
 {
 	*x = mCurrentPosX;
@@ -94,7 +103,7 @@ uint8_t tracker_setAnglePerUnit(int16_t apu)
 uint8_t tracker_refreshPositionDEAMON(void)
 {
 	
-	if (mDSDStatus == 1)
+	if (mDSDStatus > 0)
 	{
 		mCurrentPosX += ((mSysTimeMs - mPositionTime)*mDistancePerUnit) * cos(0.0175*mCurrentAngle);
 		mCurrentPosY += ((mSysTimeMs - mPositionTime)*mDistancePerUnit) * sin(0.0175*mCurrentAngle);
